@@ -83,26 +83,32 @@
             margin-top: 5px;
         }
 
-        /* Password Section */
+        /* Fixed/Sticky Password Section */
         .password-card {
             background: var(--card-bg);
             border: 2px solid var(--accent-yellow);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             margin-bottom: 30px;
+            /* Sticky Positioning */
+            position: -webkit-sticky;
+            position: sticky;
+            top: 10px;
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
         .password-card h2 {
             color: var(--accent-yellow);
-            font-size: 20px;
+            font-size: 18px;
             margin: 0 0 10px 0;
         }
 
         .password-card p {
             color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
         }
 
         .pass-input {
@@ -231,7 +237,7 @@
             <p>Enter password to see VIP servers</p>
             <input type="password" id="passInput" class="pass-input" placeholder="Enter Password">
             <button class="unlock-btn" onclick="unlockServers()">Unlock Copy Access</button>
-            <p id="errorMsg" style="color: #ff4d4d; margin-top: 10px; display: none;">Password မှားနေပါတယ်!</p>
+            <p id="errorMsg" style="color: #ff4d4d; margin-top: 10px; display: none; font-size: 12px;">Password မှားနေပါတယ်!</p>
         </div>
 
         <p id="timerMsg" style="color: #ffcc00; font-size: 12px; text-align: center; display: none; margin-bottom: 15px;">
@@ -242,12 +248,12 @@
             <div class="server-card" id="card1">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Gaming-VIP-01 🇸🇬</p>
+                        <p class="server-name">SG-Ais 64Kbps-VIP-01 🇸🇬</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status" id="status1">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1')">
+                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1', 'card1')">
                     📋 Copy VIP Config 1
                 </button>
             </div>
@@ -255,13 +261,26 @@
             <div class="server-card" id="card2">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">TH-Streaming-01 🇹🇭</p>
+                        <p class="server-name">TH-Ais 64Kbps-02 🇹🇭</p>
                         <p class="server-meta">VLESS / TLS | Port: 443</p>
                     </div>
                     <span class="lock-status" id="status2">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vmess://ewogICJ2IjogIjIiLAogICJwcyI6ICJBaVMtQWlzIFRoIFNlcnZlciIsCiAgImFkZCI6ICJqYW4ueWF3bGF3dC5hc2lhIiwKICAicG9ydCI6IDgwODAsCiAgImlkIjogIjUxNjMwNDBiLTI4ZWQtNGY4Zi1jYWZlLTRjYmY3ODZjODM2OCIsCiAgInNjeSI6ICJhdXRvIiwKICAibmV0IjogIndzIiwKICAidGxzIjogIm5vbmUiLAogICJwYXRoIjogIi8iLAogICJob3N0IjogInd3dy5zcGVlZHRlc3QubmV0Igp9')">
+                <button class="copy-btn" onclick="copyConfig('vmess://...', 'card2')">
                     📋 Copy VIP Config 2
+                </button>
+            </div>
+
+            <div class="server-card" id="card3">
+                <div class="server-header">
+                    <div>
+                        <p class="server-name">SG-Gaming VIP-03 🇸🇬</p>
+                        <p class="server-meta">VMESS / GRPC | Port: 443</p>
+                    </div>
+                    <span class="lock-status" id="status3">🔒 Locked</span>
+                </div>
+                <button class="copy-btn" onclick="copyConfig('...', 'card3')">
+                    📋 Copy VIP Config 3
                 </button>
             </div>
         </div>
@@ -278,18 +297,17 @@
             const timerMsg = document.getElementById('timerMsg');
 
             if (input === CORRECT_PASSWORD) {
-                // Unlock process
                 lockScreen.style.display = 'none';
                 timerMsg.style.display = 'block';
                 
                 const cards = document.querySelectorAll('.server-card');
                 cards.forEach((card, index) => {
                     card.classList.add('active');
-                    document.getElementById(`status${index + 1}`).innerText = '✅ Unlocked';
+                    const statusSpan = card.querySelector('.lock-status');
+                    if(statusSpan) statusSpan.innerText = '✅ Unlocked';
                 });
 
-                // ၃ မိနစ် (၁၈၀၀၀၀ မီလီစက္ကန့်) ပြည့်ရင် ပြန် Lock မယ်
-                clearTimeout(lockTimer); // Timer အဟောင်းရှိရင် ရှင်းမယ်
+                clearTimeout(lockTimer);
                 lockTimer = setTimeout(lockServers, 180000); 
 
                 alert("Servers Unlocked! Will auto-lock in 3 minutes.");
@@ -300,7 +318,6 @@
         }
 
         function lockServers() {
-            // UI ကို မူလအတိုင်း ပြန်ပြင်မယ်
             const lockScreen = document.getElementById('lockScreen');
             const timerMsg = document.getElementById('timerMsg');
             
@@ -310,18 +327,18 @@
             document.getElementById('errorMsg').style.display = 'none';
 
             const cards = document.querySelectorAll('.server-card');
-            cards.forEach((card, index) => {
+            cards.forEach((card) => {
                 card.classList.remove('active');
-                document.getElementById(`status${index + 1}`).innerText = '🔒 Locked';
+                const statusSpan = card.querySelector('.lock-status');
+                if(statusSpan) statusSpan.innerText = '🔒 Locked';
             });
 
             console.log("Session expired. Servers locked.");
         }
 
-        function copyConfig(configText) {
-            const isUnlocked = document.getElementById('card1').classList.contains('active');
-            
-            if (isUnlocked) {
+        function copyConfig(configText, cardId) {
+            const card = document.getElementById(cardId);
+            if (card && card.classList.contains('active')) {
                 navigator.clipboard.writeText(configText).then(() => {
                     alert("Config copied to clipboard!");
                 });
