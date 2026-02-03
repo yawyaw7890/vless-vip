@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP PROXY Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-blue: #00d2ff;
+            --accent-yellow: #ffcc00;
+            --text-gray: #8b949e;
+            --border-color: #30363d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        /* Header Section */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: var(--accent-blue);
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .contact-btn {
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            color: var(--accent-blue);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        /* Status Boxes */
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .status-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-blue);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .status-label {
+            color: var(--text-gray);
+            font-size: 11px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .status-value {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        /* Password Section */
+        .password-card {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-yellow);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .password-card h2 {
+            color: var(--accent-yellow);
+            font-size: 20px;
+            margin: 0 0 10px 0;
+        }
+
+        .password-card p {
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .pass-input {
+            width: 100%;
+            background: #000;
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .unlock-btn {
+            width: 100%;
+            background: var(--accent-yellow);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Server Cards */
+        .server-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .server-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .server-name {
+            font-weight: bold;
+            font-size: 17px;
+            margin: 0;
+        }
+
+        .server-meta {
+            color: var(--text-gray);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .lock-status {
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--accent-yellow);
+            font-size: 12px;
+            padding: 4px 8px;
+            border: 1px solid var(--accent-yellow);
+            border-radius: 5px;
+        }
+
+        .copy-btn {
+            width: 100%;
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            color: var(--text-gray);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: not-allowed;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        /* Unlocked State Styles */
+        .server-card.active {
+            border-color: #23d160;
+        }
+
+        .server-card.active .lock-status {
+            background: rgba(35, 209, 96, 0.1);
+            color: #23d160;
+            border-color: #23d160;
+        }
+
+        .server-card.active .copy-btn {
+            background: var(--accent-blue);
+            color: #000;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>VIP PROXY</h1>
+            <a href="#" class="contact-btn">💵 VIP ဆက်သွယ်ရန်</a>
+        </div>
+
+        <div class="status-grid">
+            <div class="status-box">
+                <span class="status-label">System Status</span>
+                <div class="status-value" style="color: #23d160;">● Running</div>
+            </div>
+            <div class="status-box">
+                <span class="status-label">Access Level</span>
+                <div class="status-value">Premium</div>
+            </div>
+        </div>
+
+        <p style="color: var(--accent-yellow); font-size: 13px; text-align: center;">
+            🔑 VIP Password ဝယ်ယူရန် Admin ကို ဆက်သွယ်ပါ
+        </p>
+
+        <div class="password-card" id="lockScreen">
+            <h2> VIP Password 🔑</h2>
+            <p>Enter password to see VIP servers</p>
+            <input type="password" id="passInput" class="pass-input" placeholder="Enter Password">
+            <button class="unlock-btn" onclick="unlockServers()">Unlock Copy Access</button>
+            <p id="errorMsg" style="color: #ff4d4d; margin-top: 10px; display: none;">Password မှားနေပါတယ်!</p>
+        </div>
+
+        <p id="timerMsg" style="color: #ffcc00; font-size: 12px; text-align: center; display: none; margin-bottom: 15px;">
+            ⚠️ Session expires in 3 minutes.
+        </p>
+
+        <div id="serverList">
+            <div class="server-card" id="card1">
+                <div class="server-header">
+                    <div>
+                        <p class="server-name">SG-Gaming-VIP-01 🇸🇬</p>
+                        <p class="server-meta">VLESS / WS | Port: 443</p>
+                    </div>
+                    <span class="lock-status" id="status1">🔒 Locked</span>
+                </div>
+                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1')">
+                    📋 Copy VIP Config 1
+                </button>
+            </div>
+
+            <div class="server-card" id="card2">
+                <div class="server-header">
+                    <div>
+                        <p class="server-name">TH-Streaming-01 🇹🇭</p>
+                        <p class="server-meta">VLESS / TLS | Port: 443</p>
+                    </div>
+                    <span class="lock-status" id="status2">🔒 Locked</span>
+                </div>
+                <button class="copy-btn" onclick="copyConfig('vmess://ewogICJ2IjogIjIiLAogICJwcyI6ICJBaVMtQWlzIFRoIFNlcnZlciIsCiAgImFkZCI6ICJqYW4ueWF3bGF3dC5hc2lhIiwKICAicG9ydCI6IDgwODAsCiAgImlkIjogIjUxNjMwNDBiLTI4ZWQtNGY4Zi1jYWZlLTRjYmY3ODZjODM2OCIsCiAgInNjeSI6ICJhdXRvIiwKICAibmV0IjogIndzIiwKICAidGxzIjogIm5vbmUiLAogICJwYXRoIjogIi8iLAogICJob3N0IjogInd3dy5zcGVlZHRlc3QubmV0Igp9')">
+                    📋 Copy VIP Config 2
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "lawtaung";
+        let lockTimer;
+
+        function unlockServers() {
+            const input = document.getElementById('passInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const lockScreen = document.getElementById('lockScreen');
+            const timerMsg = document.getElementById('timerMsg');
+
+            if (input === CORRECT_PASSWORD) {
+                // Unlock process
+                lockScreen.style.display = 'none';
+                timerMsg.style.display = 'block';
+                
+                const cards = document.querySelectorAll('.server-card');
+                cards.forEach((card, index) => {
+                    card.classList.add('active');
+                    document.getElementById(`status${index + 1}`).innerText = '✅ Unlocked';
+                });
+
+                // ၃ မိနစ် (၁၈၀၀၀၀ မီလီစက္ကန့်) ပြည့်ရင် ပြန် Lock မယ်
+                clearTimeout(lockTimer); // Timer အဟောင်းရှိရင် ရှင်းမယ်
+                lockTimer = setTimeout(lockServers, 180000); 
+
+                alert("Servers Unlocked! Will auto-lock in 3 minutes.");
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('passInput').value = '';
+            }
+        }
+
+        function lockServers() {
+            // UI ကို မူလအတိုင်း ပြန်ပြင်မယ်
+            const lockScreen = document.getElementById('lockScreen');
+            const timerMsg = document.getElementById('timerMsg');
+            
+            lockScreen.style.display = 'block';
+            timerMsg.style.display = 'none';
+            document.getElementById('passInput').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+
+            const cards = document.querySelectorAll('.server-card');
+            cards.forEach((card, index) => {
+                card.classList.remove('active');
+                document.getElementById(`status${index + 1}`).innerText = '🔒 Locked';
+            });
+
+            console.log("Session expired. Servers locked.");
+        }
+
+        function copyConfig(configText) {
+            const isUnlocked = document.getElementById('card1').classList.contains('active');
+            
+            if (isUnlocked) {
+                navigator.clipboard.writeText(configText).then(() => {
+                    alert("Config copied to clipboard!");
+                });
+            } else {
+                alert("ကျေးဇူးပြု၍ အရင် Unlock လုပ်ပါ။");
+            }
+        }
+    </script>
+</body>
+</html>
