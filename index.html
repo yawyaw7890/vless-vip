@@ -6,210 +6,442 @@
     <title>VIP KEY Dashboard</title>
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
+            --bg-color: #0a0a0f;
+            --card-bg: linear-gradient(145deg, #161b22, #1c2129);
             --accent-blue: #00d2ff;
             --accent-yellow: #ffcc00;
-            --text-gray: #8b949e;
-            --border-color: #30363d;
+            --accent-purple: #9d4edd;
+            --text-gray: #b0b7c3;
+            --text-light: #e2e8f0;
+            --border-color: #2a2f3a;
+            --success: #23d160;
+            --glow-blue: rgba(0, 210, 255, 0.3);
+            --glow-yellow: rgba(255, 204, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
             color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         .container {
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 0 15px var(--glow-blue);
         }
 
         .header h1 {
-            color: var(--accent-blue);
-            font-size: 22px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 24px;
             margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        /* --- Updated Messenger Button --- */
         .contact-btn {
-            background: #21262d;
-            border: 1px solid var(--border-color);
+            background: linear-gradient(145deg, #1a1f28, #21262d);
+            border: 1px solid rgba(0, 210, 255, 0.3);
             color: var(--accent-blue);
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 10px 16px;
+            border-radius: 10px;
             font-size: 14px;
+            font-weight: 600;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 5px;
-            transition: 0.3s;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .contact-btn:hover {
-            background: #30363d;
+            background: linear-gradient(145deg, #21262d, #2a2f3a);
             border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.2);
         }
 
         .status-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 25px;
         }
 
         .status-box {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent-blue);
-            padding: 12px;
-            border-radius: 8px;
+            padding: 18px 15px;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .status-label {
             color: var(--text-gray);
-            font-size: 11px;
+            font-size: 12px;
             text-transform: uppercase;
+            letter-spacing: 1px;
             display: block;
+            margin-bottom: 8px;
         }
 
         .status-value {
-            font-weight: bold;
-            font-size: 16px;
-            margin-top: 5px;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-light);
+        }
+
+        .running-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .running-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .premium-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(to right, var(--accent-yellow), #ffaa00);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
         }
 
         .password-card {
-            background: var(--card-bg);
-            border: 2px solid var(--accent-yellow);
-            border-radius: 15px;
-            padding: 20px;
+            background: linear-gradient(145deg, #1a1f28, #161b22);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+            border-radius: 18px;
+            padding: 25px;
             text-align: center;
-            margin-bottom: 30px;
-            position: -webkit-sticky; 
+            margin-bottom: 35px;
+            position: -webkit-sticky;
             position: sticky;
-            top: 10px; 
+            top: 15px;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 204, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .password-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
         }
 
         .password-card h2 {
-            color: var(--accent-yellow);
-            font-size: 18px;
-            margin: 0 0 10px 0;
+            background: linear-gradient(to right, var(--accent-yellow), #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 20px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .password-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.2), rgba(255, 170, 0, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 204, 0, 0.3);
         }
 
         .password-card p {
             color: var(--text-gray);
-            font-size: 13px;
-            margin-bottom: 15px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .pass-input-container {
+            position: relative;
+            margin-bottom: 20px;
         }
 
         .pass-input {
             width: 100%;
-            background: #000;
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border-color);
             color: white;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border-radius: 12px;
             text-align: center;
-            margin-bottom: 15px;
             box-sizing: border-box;
             outline: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+        }
+
+        .pass-input:focus {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 3px var(--glow-yellow);
+        }
+
+        .pass-input::placeholder {
+            color: #5a6270;
+            letter-spacing: normal;
         }
 
         .unlock-btn {
             width: 100%;
-            background: var(--accent-yellow);
+            background: linear-gradient(to right, var(--accent-yellow), #ffaa00);
             color: #000;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
             cursor: pointer;
             font-size: 16px;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.2);
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 204, 0, 0.3);
+        }
+
+        .unlock-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        #serverList {
+            margin-top: 10px;
         }
 
         .server-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: 0.3s;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 18px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.03), transparent 30%);
+            pointer-events: none;
+        }
+
+        .server-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+            border-color: rgba(0, 210, 255, 0.3);
         }
 
         .server-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            margin-bottom: 15px;
         }
 
         .server-name {
-            font-weight: bold;
-            font-size: 17px;
-            margin: 0;
+            font-weight: 700;
+            font-size: 18px;
+            margin: 0 0 8px 0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .server-meta {
             color: var(--text-gray);
             font-size: 13px;
-            margin-top: 5px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .server-meta::before {
+            content: '•';
+            color: var(--accent-blue);
         }
 
         .lock-status {
             background: rgba(255, 204, 0, 0.1);
             color: var(--accent-yellow);
             font-size: 12px;
-            padding: 4px 8px;
-            border: 1px solid var(--accent-yellow);
-            border-radius: 5px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .copy-btn {
             width: 100%;
-            background: #21262d;
+            background: linear-gradient(145deg, #21262d, #1a1f28);
             border: 1px solid var(--border-color);
             color: var(--text-gray);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 12px;
             margin-top: 15px;
             cursor: not-allowed;
             font-size: 14px;
+            font-weight: 600;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-            transition: 0.3s;
+            gap: 10px;
+            transition: all 0.3s;
         }
 
         .server-card.active {
-            border-color: #23d160;
+            border-color: rgba(35, 209, 96, 0.4);
+            background: linear-gradient(145deg, #161b22, #1a2320);
         }
 
         .server-card.active .lock-status {
-            background: rgba(35, 209, 96, 0.1);
-            color: #23d160;
-            border-color: #23d160;
+            background: rgba(35, 209, 96, 0.15);
+            color: var(--success);
+            border-color: rgba(35, 209, 96, 0.4);
         }
 
         .server-card.active .copy-btn {
-            background: var(--accent-blue);
-            color: #000;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            color: #fff;
             cursor: pointer;
             border: none;
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.2);
+        }
+
+        .server-card.active .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.3);
+        }
+
+        .server-flag {
+            font-size: 18px;
+        }
+
+        .timer-notice {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--accent-blue);
+            font-size: 13px;
+            display: none;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            width: 100%;
         }
     </style>
 </head>
@@ -217,7 +449,10 @@
 
     <div class="container">
         <div class="header">
-            <h1>VIP KEY</h1>
+            <div class="logo-container">
+                <div class="logo-icon">VK</div>
+                <h1>VIP KEY</h1>
+            </div>
             <a href="https://m.me/yawlawt2431" target="_blank" class="contact-btn">
                 💵 VIP ဆက်သွယ်ရန်
             </a>
@@ -226,31 +461,45 @@
         <div class="status-grid">
             <div class="status-box">
                 <span class="status-label">System Status</span>
-                <div class="status-value" style="color: #23d160;">● Running</div>
+                <div class="status-value">
+                    <div class="running-indicator">
+                        <div class="running-dot"></div>
+                        <span>Running</span>
+                    </div>
+                </div>
             </div>
             <div class="status-box">
                 <span class="status-label">Access Level</span>
-                <div class="status-value">Premium</div>
+                <div class="status-value">
+                    <span class="premium-tag">⭐ Premium</span>
+                </div>
             </div>
         </div>
 
-        <p style="color: var(--accent-yellow); font-size: 13px; text-align: center;">
+        <p style="color: var(--accent-yellow); font-size: 14px; text-align: center; margin-bottom: 20px; font-weight: 500;">
             🔑 VIP Password ဝယ်ယူရန် Admin ကို ဆက်သွယ်ပါ
         </p>
 
         <div class="password-card" id="lockScreen">
-            <h2> VIP Password 🔑</h2>
-            <p>Enter password to see VIP servers</p>
-            <input type="password" id="passInput" class="pass-input" placeholder="Enter Password">
-            <button class="unlock-btn" onclick="unlockServers()">Unlock Access</button>
-            <p id="errorMsg" style="color: #ff4d4d; margin-top: 10px; display: none; font-size: 12px;">Password မှားနေပါတယ်!</p>
+            <div class="password-header">
+                <div class="password-icon">🔐</div>
+                <h2>VIP Password</h2>
+            </div>
+            <p>Enter password to unlock VIP servers</p>
+            <div class="pass-input-container">
+                <input type="password" id="passInput" class="pass-input" placeholder="Enter VIP Password" autocomplete="off">
+            </div>
+            <button class="unlock-btn" onclick="unlockServers()">Unlock VIP Access</button>
+            <div id="errorMsg" class="error-message">
+                ⚠️ Password မှားနေပါတယ်!
+            </div>
         </div>
 
         <div id="serverList">
             <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-01 🇸🇬</p>
+                        <p class="server-name"><span class="server-flag">🇸🇬</span> SG-Ais 64Kbps-VIP-01</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
@@ -263,20 +512,7 @@
             <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-02 🇸🇬</p>
-                        <p class="server-meta">VLESS / WS | Port: 443</p>
-                    </div>
-                    <span class="lock-status">🔒 Locked</span>
-                </div>
-                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
-                    📋 Copy VIP Config 2
-                </button>
-            </div>
-            
-              <div class="server-card">
-                <div class="server-header">
-                    <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-03 🇸🇬</p>
+                        <p class="server-name"><span class="server-flag">🇸🇬</span> SG-Ais 64Kbps-VIP-02</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
@@ -289,76 +525,130 @@
             <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-04 🇸🇬</p>
+                        <p class="server-name"><span class="server-flag">🇸🇬</span> SG-Ais 64Kbps-VIP-03</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
-                    📋 Copy VIP Config 2
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_3_HERE', this)">
+                    📋 Copy VIP Config 3
                 </button>
             </div>
             
             <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-05 🇸🇬</p>
+                        <p class="server-name"><span class="server-flag">🇸🇬</span> SG-Ais 64Kbps-VIP-04</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
-                    📋 Copy VIP Config 2
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_4_HERE', this)">
+                    📋 Copy VIP Config 4
                 </button>
             </div>
             
             <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-06 🇸🇬</p>
+                        <p class="server-name"><span class="server-flag">🇸🇬</span> SG-Ais 64Kbps-VIP-05</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
-                    📋 Copy VIP Config 2
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_5_HERE', this)">
+                    📋 Copy VIP Config 5
                 </button>
             </div>
+            
+            <div class="server-card">
+                <div class="server-header">
+                    <div>
+                        <p class="server-name"><span class="server-flag">🇸🇬</span> SG-Ais 64Kbps-VIP-06</p>
+                        <p class="server-meta">VLESS / WS | Port: 443</p>
+                    </div>
+                    <span class="lock-status">🔒 Locked</span>
+                </div>
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_6_HERE', this)">
+                    📋 Copy VIP Config 6
+                </button>
+            </div>
+        </div>
+
+        <div id="timerNotice" class="timer-notice">
+            ⏳ Servers will auto-lock in <span id="countdown">60</span> seconds
+        </div>
+
+        <div class="footer-note">
+            VIP KEY Dashboard © 2023 | Premium Access Only
         </div>
     </div>
 
     <script>
         const CORRECT_PASSWORD = "tsawm";
         let lockTimer;
+        let countdownInterval;
 
         function unlockServers() {
             const input = document.getElementById('passInput').value;
             const errorMsg = document.getElementById('errorMsg');
             const lockScreen = document.getElementById('lockScreen');
+            const timerNotice = document.getElementById('timerNotice');
 
             if (input === CORRECT_PASSWORD) {
                 lockScreen.style.display = 'none';
+                timerNotice.style.display = 'block';
                 
                 const cards = document.querySelectorAll('.server-card');
                 cards.forEach((card) => {
                     card.classList.add('active');
                     const statusSpan = card.querySelector('.lock-status');
-                    if(statusSpan) statusSpan.innerText = '✅ Unlocked';
+                    if(statusSpan) statusSpan.innerHTML = '✅ Unlocked';
                 });
 
                 clearTimeout(lockTimer); 
+                clearInterval(countdownInterval);
+                
+                // Start 60-second countdown
+                let timeLeft = 60;
+                const countdownElement = document.getElementById('countdown');
+                countdownElement.textContent = timeLeft;
+                
+                countdownInterval = setInterval(() => {
+                    timeLeft--;
+                    countdownElement.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(countdownInterval);
+                    }
+                }, 1000);
+
                 lockTimer = setTimeout(lockServers, 60000); 
 
-                alert("Servers Unlocked! Will auto-lock in 1 minute.");
+                // Show success message
+                showNotification("Servers Unlocked! Will auto-lock in 1 minute.", "success");
             } else {
-                errorMsg.style.display = 'block';
+                errorMsg.style.display = 'flex';
                 document.getElementById('passInput').value = '';
+                document.getElementById('passInput').focus();
+                
+                // Add error animation
+                const passInput = document.getElementById('passInput');
+                passInput.style.borderColor = '#ff4d4d';
+                passInput.style.boxShadow = '0 0 0 3px rgba(255, 77, 77, 0.2)';
+                setTimeout(() => {
+                    passInput.style.borderColor = '';
+                    passInput.style.boxShadow = '';
+                }, 500);
             }
         }
 
         function lockServers() {
             const lockScreen = document.getElementById('lockScreen');
+            const timerNotice = document.getElementById('timerNotice');
+            
             lockScreen.style.display = 'block';
+            timerNotice.style.display = 'none';
             document.getElementById('passInput').value = '';
             document.getElementById('errorMsg').style.display = 'none';
 
@@ -366,20 +656,87 @@
             cards.forEach((card) => {
                 card.classList.remove('active');
                 const statusSpan = card.querySelector('.lock-status');
-                if(statusSpan) statusSpan.innerText = '🔒 Locked';
+                if(statusSpan) statusSpan.innerHTML = '🔒 Locked';
             });
+            
+            showNotification("Servers Locked. Enter password to unlock.", "info");
         }
 
         function copyConfig(configText, btnElement) {
             const card = btnElement.closest('.server-card');
             if (card && card.classList.contains('active')) {
                 navigator.clipboard.writeText(configText).then(() => {
-                    alert("Config copied to clipboard!");
+                    // Change button text temporarily
+                    const originalText = btnElement.innerHTML;
+                    btnElement.innerHTML = '✅ Copied!';
+                    btnElement.style.background = 'linear-gradient(to right, #23d160, #1db954)';
+                    
+                    setTimeout(() => {
+                        btnElement.innerHTML = originalText;
+                        btnElement.style.background = 'linear-gradient(to right, var(--accent-blue), var(--accent-purple))';
+                    }, 2000);
+                    
+                    showNotification("VIP Config copied to clipboard!", "success");
+                }).catch(err => {
+                    showNotification("Failed to copy config", "error");
                 });
             } else {
-                alert("ကျေးဇူးပြု၍ အရင် Unlock လုပ်ပါ။");
+                showNotification("ကျေးဇူးပြု၍ အရင် Unlock လုပ်ပါ။", "error");
             }
         }
+
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(to right, #23d160, #1db954)' : 
+                          type === 'error' ? 'linear-gradient(to right, #ff4d4d, #ff3333)' : 
+                          'linear-gradient(to right, var(--accent-blue), var(--accent-purple))'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-weight: 600;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                z-index: 9999;
+                animation: slideIn 0.3s ease-out;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out forwards';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add keypress listener for Enter key
+        document.getElementById('passInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                unlockServers();
+            }
+        });
+
+        // Add CSS for notification animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
