@@ -43,6 +43,7 @@
             margin: 0;
         }
 
+        /* --- Updated Messenger Button --- */
         .contact-btn {
             background: #21262d;
             border: 1px solid var(--border-color);
@@ -51,6 +52,15 @@
             border-radius: 8px;
             font-size: 14px;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: #30363d;
+            border-color: var(--accent-blue);
         }
 
         .status-grid {
@@ -81,7 +91,6 @@
             margin-top: 5px;
         }
 
-        /* --- Sticky Password Section --- */
         .password-card {
             background: var(--card-bg);
             border: 2px solid var(--accent-yellow);
@@ -89,13 +98,11 @@
             padding: 20px;
             text-align: center;
             margin-bottom: 30px;
-            
-            /* ဒီနေရာမှာ Sticky ဖြစ်အောင် လုပ်ထားပါတယ် */
             position: -webkit-sticky; 
             position: sticky;
-            top: 10px; /* Screen ရဲ့ အပေါ်ကနေ ၁၀ px အကွာမှာ ကပ်နေပါမယ် */
-            z-index: 1000; /* တခြား Server ကတ်တွေရဲ့ အပေါ်မှာ ရှိနေဖို့ပါ */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); /* Scroll လုပ်တဲ့အခါ ကြည့်ကောင်းအောင် shadow ထည့်ထားပါတယ် */
+            top: 10px; 
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
 
         .password-card h2 {
@@ -120,6 +127,7 @@
             text-align: center;
             margin-bottom: 15px;
             box-sizing: border-box;
+            outline: none;
         }
 
         .unlock-btn {
@@ -210,7 +218,9 @@
     <div class="container">
         <div class="header">
             <h1>VIP KEY</h1>
-            <a href="#" class="contact-btn">💵 VIP ဆက်သွယ်ရန်</a>
+            <a href="https://m.me/yawlawt2431" target="_blank" class="contact-btn">
+                💵 VIP ဆက်သွယ်ရန်
+            </a>
         </div>
 
         <div class="status-grid">
@@ -236,10 +246,6 @@
             <p id="errorMsg" style="color: #ff4d4d; margin-top: 10px; display: none; font-size: 12px;">Password မှားနေပါတယ်!</p>
         </div>
 
-        <p id="timerMsg" style="color: #ffcc00; font-size: 12px; text-align: center; display: none; margin-bottom: 15px;">
-            ⚠️ Session expires in 1 minute.
-        </p>
-
         <div id="serverList">
             <div class="server-card">
                 <div class="server-header">
@@ -249,7 +255,7 @@
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1', this)">
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_1_HERE', this)">
                     📋 Copy VIP Config 1
                 </button>
             </div>
@@ -262,47 +268,60 @@
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1', this)">
-                    📋 Copy VIP Config 1
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
+                    📋 Copy VIP Config 2
                 </button>
             </div>
             
               <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-03 🇸🇬</p>
+                        <p class="server-name">SG-Ais 64Kbps-VIP-02 🇸🇬</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1', this)">
-                    📋 Copy VIP Config 1
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
+                    📋 Copy VIP Config 2
                 </button>
             </div>
             
-                        <div class="server-card">
+            <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-04 🇸🇬</p>
+                        <p class="server-name">SG-Ais 64Kbps-VIP-02 🇸🇬</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1', this)">
-                    📋 Copy VIP Config 1
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
+                    📋 Copy VIP Config 2
                 </button>
             </div>
             
-                        <div class="server-card">
+            <div class="server-card">
                 <div class="server-header">
                     <div>
-                        <p class="server-name">SG-Ais 64Kbps-VIP-05 🇸🇬</p>
+                        <p class="server-name">SG-Ais 64Kbps-VIP-02 🇸🇬</p>
                         <p class="server-meta">VLESS / WS | Port: 443</p>
                     </div>
                     <span class="lock-status">🔒 Locked</span>
                 </div>
-                <button class="copy-btn" onclick="copyConfig('vless://2f888247-c57a-475c-b28b-eb61aed1cac9@mar.yawlawt.asia:80?type=ws&encryption=none&path=%2F&host=www.speedtest.net&security=none#Ais%20Sg%20Server-1', this)">
-                    📋 Copy VIP Config 1
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
+                    📋 Copy VIP Config 2
+                </button>
+            </div>
+            
+            <div class="server-card">
+                <div class="server-header">
+                    <div>
+                        <p class="server-name">SG-Ais 64Kbps-VIP-02 🇸🇬</p>
+                        <p class="server-meta">VLESS / WS | Port: 443</p>
+                    </div>
+                    <span class="lock-status">🔒 Locked</span>
+                </div>
+                <button class="copy-btn" onclick="copyConfig('vless://CONFIG_2_HERE', this)">
+                    📋 Copy VIP Config 2
                 </button>
             </div>
         </div>
@@ -316,12 +335,9 @@
             const input = document.getElementById('passInput').value;
             const errorMsg = document.getElementById('errorMsg');
             const lockScreen = document.getElementById('lockScreen');
-            const timerMsg = document.getElementById('timerMsg');
 
             if (input === CORRECT_PASSWORD) {
-                // Unlock ဖြစ်သွားရင် Password Box ကို ဖျောက်လိုက်ပြီး Timer ပြမယ်
                 lockScreen.style.display = 'none';
-                timerMsg.style.display = 'block';
                 
                 const cards = document.querySelectorAll('.server-card');
                 cards.forEach((card) => {
@@ -330,7 +346,6 @@
                     if(statusSpan) statusSpan.innerText = '✅ Unlocked';
                 });
 
-                // ၁ မိနစ် (၆၀၀၀၀ ms) ပြည့်ရင် ပြန် Lock မယ်
                 clearTimeout(lockTimer); 
                 lockTimer = setTimeout(lockServers, 60000); 
 
@@ -343,10 +358,7 @@
 
         function lockServers() {
             const lockScreen = document.getElementById('lockScreen');
-            const timerMsg = document.getElementById('timerMsg');
-            
             lockScreen.style.display = 'block';
-            timerMsg.style.display = 'none';
             document.getElementById('passInput').value = '';
             document.getElementById('errorMsg').style.display = 'none';
 
@@ -356,8 +368,6 @@
                 const statusSpan = card.querySelector('.lock-status');
                 if(statusSpan) statusSpan.innerText = '🔒 Locked';
             });
-
-            console.log("Session expired. Servers locked.");
         }
 
         function copyConfig(configText, btnElement) {
